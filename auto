@@ -1,0 +1,224 @@
+local SuperSecretCode = "H̤ͦit̵͇̖"
+
+local Exitbutton = game.Players.LocalPlayer.PlayerGui.CodesPopup.CodesPopup.Container.Body.Page.AcceptButton
+local TextZoneCode = game.Players.LocalPlayer.PlayerGui.CodesPopup.CodesPopup.Container.Body.Page.Contents.BodyText
+local CodeZone = game.Players.LocalPlayer.PlayerGui.CodesPopup.CodesPopup.Container.Body.Page.Contents.UserInputField.Container.UserTypeInput
+
+game.Players.LocalPlayer.PlayerGui.CodesPopup.CodesPopup.Container.Body.Page.Contents.Info.Visible = false
+TextZoneCode.Text = "This is the verification code of <b>TheWildWest</b> autominer, if you dont know the code you cant use it. Sorry 😅"
+
+--game.Players.LocalPlayer.PlayerGui.CodesPopup.Enabled = true
+
+--Exitbutton.MouseButton1Click:Connect(function()
+--    if CodeZone.Text == SuperSecretCode or _G.SecretCodeAutoFinderCheck == true then
+--        game.Players.LocalPlayer.PlayerGui.CodesPopup.Enabled = false
+
+-- Launche Check --
+if _G.Launched == true then
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+end
+
+-- Set Value --
+_G.Launched = true
+i = 1
+
+-- Function --
+function movetofunc()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.Y,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.Y,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.Nine,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.Nine,false,game)
+
+    local PathfindingService = game:GetService("PathfindingService")
+    local human = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+    local torso = game.Players.LocalPlayer.Character:WaitForChild("LowerTorso")
+    
+    local path = PathfindingService:CreatePath { 
+        --AgentRadius = 2,
+        --AgentHeight = 2.25,
+        AgentCanClimb = true,
+        AgentCanJump = true,
+    }
+    
+    path:ComputeAsync(torso.Position, EndPosition)
+    local waypoints = path:GetWaypoints()
+    
+    for i, waypoint in pairs(waypoints) do
+        if waypoint.Action == Enum.PathWaypointAction.Jump then
+            human:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+        human:MoveTo(waypoint.Position)
+        human.MoveToFinished:Wait()
+    end
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.Y,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.Y,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.Nine,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.Nine,false,game)
+end
+
+function thisisfull()
+    if game.Players.LocalPlayer.PlayerGui.InventoryUI.Inventory.Container.BottomBar.Body.NumSlots.Text == "30 / 30" then
+        isfull = true
+    else 
+        isfull = false
+    end
+end
+
+function OreRemaining()
+    local Closest
+    local PlayerPosition = game.Players.LocalPlayer.Character.PrimaryPart.Position
+    
+    for i,v in pairs(game:GetService("Workspace")["WORKSPACE_Interactables"].Mining.OreDeposits:GetDescendants()) do
+        if string.match(v.Name, "Base") then
+            if Closest == nil then
+                Closest = v
+            else
+                if (PlayerPosition - v.Position).magnitude < (Closest.Position - PlayerPosition).magnitude then
+                    Closest = v
+                end
+            end
+        end
+    end
+    _G.Closest = Closest
+end
+
+-- Security Part --
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Size = Vector3.new(125, 1, 75)
+Platforme.Position = Vector3.new(1149.29, -4, -1210.1)
+Platforme.Parent = game.Workspace
+
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Size = Vector3.new(100, 1, 75)
+Platforme.Position = Vector3.new(1175, -17.392, -1110)
+Platforme.Parent = game.Workspace
+
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Size = Vector3.new(40, 1, 45)
+Platforme.Rotation = Vector3.new(20, 0, 0)
+Platforme.Position = Vector3.new(1190.29, -12, -1152.1)
+Platforme.Parent = game.Workspace
+
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Size = Vector3.new(5, 25, 5)
+Platforme.Position = Vector3.new(1273.45, 8.29245, -1142.2)
+Platforme.Parent = game.Workspace
+
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Size = Vector3.new(5, 25, 5)
+Platforme.Position = Vector3.new(1254.01, 10.0479, -1178.42)
+Platforme.Parent = game.Workspace
+
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Color = Color3.fromRGB(106, 165, 102)
+Platforme.Size = Vector3.new(26, 0.5, 15)
+Platforme.Rotation = Vector3.new(20, 0, 0)
+Platforme.Position = Vector3.new(1189.79, -12.321, -1149.025)
+Platforme.Parent = game.Workspace
+
+local Platforme = Instance.new("Part")
+Platforme.Anchored = true
+Platforme.Material = "ForceField"
+Platforme.Color = Color3.fromRGB(106, 165, 102)
+Platforme.Size = Vector3.new(12.75, 3.25, 27.25)
+Platforme.Position = Vector3.new(1215.885, -11.327, -1138.045)
+Platforme.Parent = game.Workspace
+
+-- Remove Shop Doors --
+for i = 1, 3 do
+    game:GetService("Workspace")["WORKSPACE_Geometry"]["REGION_Plains"]["Bronze City"].Buildings.NewGeneralStore:FindFirstChild("Door"):Destroy()
+end
+
+-- Size Of Mineral --
+for i,v in pairs(game:GetService("Workspace")["WORKSPACE_Interactables"].Mining.OreDeposits:GetDescendants()) do
+    if v:IsA("MeshPart") then
+		v.Size = Vector3.new(10.16136, 10.53925, 12.97672)
+		v.CanCollide = false
+	end
+end
+
+-- Take Pickaxe --
+game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.Four,false,game)
+wait(0.25)
+game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.Four,false,game)
+
+-- Open Inventory --
+game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.B,false,game)
+wait(0.25)
+game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.B,false,game)
+
+-- Shop GUI + Move --
+EndPosition = Vector3.new(654.389, 39.6504, -812.504)
+movetofunc()
+
+EndPosition = Vector3.new(663.539, 42.2776, -945.427)
+movetofunc()
+
+EndPosition = Vector3.new(738.938, 2.43074, -1119.45)
+movetofunc()
+
+-- Mining System + Move --
+while _G.automineon == true do
+    thisisfull()
+    if isfull == true then
+        EndPosition = Vector3.new(1114.7, 0.0503915, -1226.24) -- Cave
+        movetofunc()
+
+        EndPosition = Vector3.new(663.539, 42.2776, -945.427) -- SemiShop
+        movetofunc()
+
+        EndPosition = Vector3.new(678.886, 39.2537, -901.273) -- quadMineral
+        movetofunc()
+
+        EndPosition = Vector3.new(654.389, 39.6504, -812.504) -- Shop
+        movetofunc()
+
+        wait(0.50)
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.F,false,game)
+      	wait(0.9)
+        game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.F,false,game)
+
+        EndPosition = Vector3.new(663.539, 42.2776, -945.427)
+        movetofunc()
+
+        EndPosition = Vector3.new(738.938, 2.43074, -1119.45)
+        movetofunc()
+        i = 1
+    end
+    if isfull == false then -- Mine
+        EndPosition = _G.MineralPosition[i]
+        movetofunc()
+
+        OreRemaining()
+        if _G.Closest.Parent.DepositInfo.OreRemaining.Value ~= 0 then
+            for v = 1, _G.Closest.Parent.DepositInfo.OreRemaining.Value do
+                game:GetService("VirtualInputManager"):SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                wait(_G.MineTime)
+                game:GetService("VirtualInputManager"):SendMouseButtonEvent(0, 0, 0, false, game, 1)
+            end
+        end
+
+        i = i + 1
+        if i == #_G.MineralPosition then
+            i = 1
+        end
+    end
+    wait()
+end
+
+--else
+--    game.Players.LocalPlayer:kick("Thats not the code XD You cant brain me like that...")
+--end
+--end)
